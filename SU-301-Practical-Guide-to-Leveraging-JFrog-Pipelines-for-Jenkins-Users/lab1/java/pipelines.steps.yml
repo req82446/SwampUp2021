@@ -27,6 +27,14 @@ pipelines:
             - name: lab1_bi_backapp_mvn
           integrations:
             - name: artifactory_eu
+        execution:
+        onStart:
+          - ls -l ${res_lab1_src_code_backapp_mvn_resourcePath}/${trainingPath}/src/java
+          - jfrog rt c show
+        onFailure:
+          - echo "Not cool"
+        onSuccess:
+          - echo "Yahoo"
 
       - name: lab1_scan_backapp_mvn
         type: XrayScan
